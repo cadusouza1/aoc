@@ -14,7 +14,7 @@ BIN=$(BIN_DIR)/day1
 run: $(BIN)
 	$<
 
-$(BIN): $(OBJ) $(OBJS)
+$(BIN): $(BIN_DIR) $(OBJ) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 $(OBJ)/%.o: $(SRC)/%.c $(OBJ)
@@ -28,3 +28,7 @@ $(SRC):
 
 $(BIN_DIR):
 	mkdir -p $@
+
+clean:
+	rm -rf $(BIN_DIR)
+	rm -rf $(OBJ)
