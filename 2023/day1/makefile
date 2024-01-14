@@ -1,5 +1,4 @@
 CC=gcc
-# CFLAGS=-Wall -Werror -g
 CFLAGS=-g
 
 SRC=src
