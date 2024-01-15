@@ -63,3 +63,27 @@ Game parse_game_from_line(char *line) {
 
     return g;
 }
+
+ColorCounts get_minimum_set(ColorCounts counts[], int len) {
+    ColorCounts minimum = {.red = 0, .green = 0, .blue = 0};
+
+    for (int i = 0; i < len; i++) {
+        if (counts[i].red > minimum.red) {
+            minimum.red = counts[i].red;
+        }
+
+        if (counts[i].green > minimum.green) {
+            minimum.green = counts[i].green;
+        }
+
+        if (counts[i].blue > minimum.blue) {
+            minimum.blue = counts[i].blue;
+        }
+    }
+
+    return minimum;
+}
+
+int power_set(ColorCounts count) {
+    return count.red * count.green * count.blue;
+}

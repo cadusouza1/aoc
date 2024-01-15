@@ -15,3 +15,5 @@ typedef struct {
 } Game;
 
 Game parse_game_from_line(char *line);
+ColorCounts get_minimum_set(ColorCounts counts[], int len);
+int power_set(ColorCounts count);
