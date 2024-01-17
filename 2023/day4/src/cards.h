@@ -9,3 +9,4 @@ typedef struct {
 
 Card *parse_card_line(char *line);
 int get_total_points(Card *card);
+int get_num_matches(Card *card);

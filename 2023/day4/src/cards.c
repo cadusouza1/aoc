@@ -93,20 +93,31 @@ Card *parse_card_line(char *line) {
     return card;
 }
 
-int get_total_points(Card *card) {
-    int points = 0, i, j;
+int get_num_matches(Card *card) {
+    int matches = 0, i, j;
 
     for (i = 0; i < card->numbers_size; i++) {
         for (j = 0; j < card->winning_numbers_size; j++) {
             if (card->numbers[i] == card->winning_numbers[j]) {
-                if (points == 0) {
-                    points = 1;
-                    continue;
-                }
-
-                points *= 2;
+                matches++;
             }
         }
+    }
+
+    return matches;
+}
+
+int get_total_points(Card *card) {
+    int matches = get_num_matches(card);
+    int points = 1;
+    int i;
+
+    if (matches == 0) {
+        return 0;
+    }
+
+    for (i = 0; i < matches - 1; i++) {
+        points *= 2;
     }
 
     return points;
