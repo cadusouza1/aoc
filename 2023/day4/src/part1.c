@@ -5,7 +5,6 @@
 
 void part1(FILE *input) {
     size_t n = 0;
-    int i;
     char *line = NULL;
     Card *card;
     int total_points = 0;

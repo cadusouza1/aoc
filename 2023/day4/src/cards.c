@@ -55,7 +55,7 @@ RawNumbersResult *parse_raw_numbers(char *raw_numbers, int size, char *sep) {
     while ((number = strsep(&raw_numbers, sep))) {
         parsed_number = atoi(number);
 
-        // There are no single 0s in the input.
+        /* There are no single 0s in the input. */
         if (parsed_number == 0) {
             continue;
         }
@@ -71,7 +71,8 @@ Card *parse_card_line(char *line) {
     Card *card = card_init(32);
     RawNumbersResult *parsed_numbers_result, *parsed_winning_numbers_result;
 
-    char *card_info = strsep(&line, ":");
+    // Removing the Card %d: part of the input, since it is not needed
+    strsep(&line, ":");
     char *winning_numbers = strsep(&line, "|");
     char *numbers = line;
 
