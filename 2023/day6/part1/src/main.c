@@ -30,10 +30,10 @@ void parse_line(char *line, int *result, int *size) {
 
 int main(int argc, char *argv[]) {
     char line_time[MAX_LINE_CHARS];
-    int time_result[MAX_NUMS_LEN], time_size, time_start_index = 0;
+    int time_result[MAX_NUMS_LEN], time_size;
 
     char line_distance[MAX_LINE_CHARS];
-    int distance_result[MAX_NUMS_LEN], distance_size, distance_start_index = 0;
+    int distance_result[MAX_NUMS_LEN], distance_size;
 
     int minimum_winning_time, maximum_winning_time;
 
@@ -54,13 +54,5 @@ int main(int argc, char *argv[]) {
     }
 
     printf("winning_ways_count = %d\n", winning_ways_count);
-    /* minimum_winning_time = */
-    /*     get_minimun_winning_time(1, time_result[0], distance_result[0]); */
-
-    /* maximum_winning_time = */
-    /*     get_maximun_winning_time(1, time_result[0], distance_result[0]); */
-
-    /* printf("minimum_winning_time = %d\n", minimum_winning_time); */
-    /* printf("maximum_winning_time = %d\n", maximum_winning_time); */
     return 0;
 }

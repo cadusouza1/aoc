@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g
+CFLAGS=-g -Wall -Werror -ansi -pedantic
 
 SRC=src
 SRCS=$(wildcard $(SRC)/*.c)
