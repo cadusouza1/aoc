@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g
+CFLAGS=-g -Wall -Werror -ansi -pedantic
 
 SRC=src
 SRCS=$(wildcard $(SRC)/*.c)
@@ -8,10 +8,13 @@ OBJ=obj
 OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
 BIN_DIR=bin
-BIN=$(BIN_DIR)/day2
+BIN=$(BIN_DIR)/solution
 
-run: $(BIN)
-	$<
+INPUT_DIR=input
+INPUT=$(INPUT_DIR)/input.txt
+
+run: $(BIN) $(INPUT)
+	$< < $(INPUT)
 
 $(BIN): $(BIN_DIR) $(OBJ) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
@@ -27,6 +30,12 @@ $(SRC):
 
 $(BIN_DIR):
 	mkdir -p $@
+
+$(INPUT_DIR):
+	mkdir -p $@
+
+$(INPUT): $(INPUT_DIR)
+	touch $@
 
 clean:
 	rm -rf $(BIN_DIR)

@@ -1,17 +1,17 @@
 #include "search.h"
 #include <stdio.h>
 
-void part1(FILE *input) {
-    char *line = NULL;
-    size_t n = 0;
+#define MAX_LINE_LENGTH 64
+
+int main(int argc, char *argv[]) {
+    char line[MAX_LINE_LENGTH];
 
     int right_number_index, right_number;
     int left_number_index, left_number;
     int total_sum = 0;
 
-    while (!feof(input)) {
-        getline(&line, &n, input);
-
+    while (fgets(line, MAX_LINE_LENGTH, stdin)) {
+        int a = 10;
         left_number_index = lsearch_int(line);
         if (left_number_index == -1) {
             continue;
@@ -28,8 +28,6 @@ void part1(FILE *input) {
         total_sum += 10 * left_number + right_number;
     }
 
-    // Take care of a duplicate reading of the last line
-    total_sum -= 10 * left_number + right_number;
-
     printf("%d\n", total_sum);
+    return 0;
 }

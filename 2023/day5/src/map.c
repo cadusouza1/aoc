@@ -11,7 +11,7 @@ typedef struct {
 
 typedef struct {
     int len;
-    Range **ranges;
+    Range *ranges;
 } Map;
 
 int max(int x, int y) {
@@ -38,7 +38,7 @@ Map *map_init(int size) {
     }
 
     map->len = 0;
-    map->ranges = calloc(size, sizeof(Range *));
+    map->ranges = calloc(size, sizeof(Range));
 
     if (map->ranges == NULL) {
         fprintf(stderr, "Couldn't allocate memory for Map's ranges\n");
@@ -48,17 +48,12 @@ Map *map_init(int size) {
     return map;
 }
 
-Range *parse_range_from_line(char *line) {
-    Range *r = malloc(sizeof(Range));
+Range parse_range_from_line(char *line) {
+    Range r;
 
-    if (r == NULL) {
-        fprintf(stderr, "Couldn't allocate memory for Range struct'\n");
-        return NULL;
-    }
-
-    r->destination_start = atoi(strtok(line, " "));
-    r->source_start = atoi(strtok(NULL, " "));
-    r->len = atoi(strtok(NULL, " "));
+    r.destination_start = atoi(strtok(line, " "));
+    r.source_start = atoi(strtok(NULL, " "));
+    r.len = atoi(strtok(NULL, " "));
     return r;
 }
 
@@ -68,10 +63,6 @@ Map *parse_map_from_lines(char **lines, int start, int end) {
 
     for (i = start; i < end; i++) {
         map->ranges[map->len] = parse_range_from_line(lines[i]);
-        if (map->ranges[map->len] == NULL) {
-            return NULL;
-        }
-
         map->len++;
     }
 
@@ -82,27 +73,14 @@ int convert_source_to_destination(int src, Map *map) {
     int i, j, map_src, src_dest_diff, dest = src, max_num, min_num;
 
     for (i = 0; i < map->len; i++) {
-        map_src = map->ranges[i]->source_start + map->ranges[i]->len - src;
-        /* printf("map->ranges[%d].source_start = %d\n", i, */
-        /*        map->ranges[i].source_start); */
-        /* printf("map->ranges[%d].destination_start = %d\n", i, */
-        /*        map->ranges[i].destination_start); */
-        /* printf("map->ranges[%d].len = %d\n", i, map->ranges[i].len); */
-        /* printf("map_src = %d\n", map_src); */
-
+        map_src = map->ranges[i].source_start + map->ranges[i].len - src;
         if (map_src < 0) {
             continue;
         }
 
-        if (map_src <= map->ranges[i]->len) {
-            /* max_num = max(map->ranges[i]->source_start, */
-            /*               map->ranges[i]->destination_start); */
-            /* min_num = min(map->ranges[i]->source_start, */
-            /*               map->ranges[i]->destination_start); */
-            /* printf("max_num = %d\n", max_num); */
-            /* printf("min_num = %d\n", min_num); */
-            src_dest_diff = map->ranges[i]->destination_start -
-                            map->ranges[i]->source_start;
+        if (map_src <= map->ranges[i].len) {
+            src_dest_diff =
+                map->ranges[i].destination_start - map->ranges[i].source_start;
             return src + src_dest_diff;
         }
     }

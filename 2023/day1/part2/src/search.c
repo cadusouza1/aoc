@@ -3,30 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-int lsearch_int(char *line) {
-    int i;
-
-    for (i = 0; line[i] != '\0'; i++) {
-        if (isdigit(line[i])) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-int rsearch_int(char *line) {
-    int i;
-
-    for (i = strlen(line) - 1; i >= 0; i--) {
-        if (isdigit(line[i])) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
 char *substr(char *s, int start, int end) {
     int len = end - start;
     char *subst = malloc(sizeof(char) * (len + 1));
@@ -46,10 +22,10 @@ char *substr(char *s, int start, int end) {
 int spelled_digit_to_digit(char *s) {
     char *spelled_numbers[] = {"zero", "one", "two",   "three", "four",
                                "five", "six", "seven", "eight", "nine"};
-    int num_len = 0, possible_number_index = 0;
+    int num_len = 0, possible_number_index = 0, i;
     char *subst;
 
-    for (int i = 0; s[i] != '\0'; i++) {
+    for (i = 0; s[i] != '\0'; i++) {
         switch (s[i]) {
         case 'z':
             possible_number_index = 0;
@@ -131,7 +107,7 @@ int rget_int_with_name(char *line) {
     int i;
     int digit;
 
-    for (i = strlen(line) - 1; line >= 0; i--) {
+    for (i = strlen(line) - 1; i >= 0; i--) {
         if (isdigit(line[i])) {
             return line[i] - '0';
         }

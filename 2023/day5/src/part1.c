@@ -8,7 +8,6 @@
 #define MAP_COUNT 7
 
 void part1(FILE *input) {
-    SeedData *seeds_data;
     Seeds *seeds;
     Map *maps[MAP_COUNT];
     int map_index = 0;
