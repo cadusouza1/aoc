@@ -6,10 +6,8 @@ import           Data.List (sort)
 main :: IO ()
 main = do
     inputData <- lines <$> readFile "input.txt"
-    let rawNumbers = map words inputData
-    let ids = map (map read) rawNumbers :: [[Int]]
-    let leftIds = sort $ map (!! 0) ids
-    let rightIds = sort $ map (!! 1) ids
-    let answer = sum $ map (\(x, y) -> x - y) (zip leftIds rightIds)
+    let ids = [(read x, read y) | line <- inputData, let [x, y] = words line]
+    let (leftIds, rightIds) = unzip ids
+    let answer = sum $ zipWith (-) (sort leftIds) (sort rightIds)
 
     print answer
